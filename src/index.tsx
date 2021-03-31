@@ -140,11 +140,11 @@ class Game extends React.Component<any, GameState> {
 
     const moves = history.map((step, move) => {
       const player = history[move].player;
-      const position = `(${(history[move].location % 3) + 1}, ${
+      const location = `(${(history[move].location % 3) + 1}, ${
         Math.floor(history[move].location / 3) + 1
       })`;
       const desc = move
-        ? `Go to move # ${move} ${player}${position}`
+        ? `Go to move # ${move} ${player}${location}`
         : "Go to game start";
       return (
         <li key={move}>
