@@ -78,7 +78,7 @@ class Board extends React.Component<BoardProps> {
 }
 
 interface GameState {
-  history: { squares: SquareType[] }[];
+  history: { squares: SquareType[]; location: number; player: "X" | "O" }[];
   stepNumber: number;
   xIsNext: boolean;
 }
@@ -90,6 +90,8 @@ class Game extends React.Component<any, GameState> {
       history: [
         {
           squares: Array(9).fill(null),
+          player: "X",
+          location: 0,
         },
       ],
       stepNumber: 0,
@@ -109,6 +111,8 @@ class Game extends React.Component<any, GameState> {
       history: history.concat([
         {
           squares: squares,
+          location: i,
+          player: this.state.xIsNext ? "X" : "O",
         },
       ]),
       stepNumber: history.length,
@@ -135,7 +139,13 @@ class Game extends React.Component<any, GameState> {
     }
 
     const moves = history.map((step, move) => {
-      const desc = move ? `Go to move # ${move}` : "Go to game start";
+      const player = history[move].player;
+      const position = `(${(history[move].location % 3) + 1}, ${
+        Math.floor(history[move].location / 3) + 1
+      })`;
+      const desc = move
+        ? `Go to move # ${move} ${player}${position}`
+        : "Go to game start";
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
