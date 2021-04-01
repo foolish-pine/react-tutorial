@@ -59,12 +59,17 @@ class Board extends React.Component<BoardProps> {
       for (let j = i * 3; j < i * 3 + 3; j++) {
         columns.push(
           <Square
+            key={j}
             value={this.props.squares[j]}
             onClick={() => this.props.onClick(j)}
           />
         );
       }
-      rows.push(<div className="board-row">{columns}</div>);
+      rows.push(
+        <div key={i} className="board-row">
+          {columns}
+        </div>
+      );
     }
 
     return (
