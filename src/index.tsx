@@ -68,6 +68,7 @@ class Board extends React.Component<BoardProps> {
   renderSquare(i: number) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         squareNumber={i}
         winner={this.props.winner}
